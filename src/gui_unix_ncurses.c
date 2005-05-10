@@ -21,10 +21,10 @@
 #include <stdlib.h>     /* provides atexit() */
 #include <string.h>     /* needed for strlen() */
 #include <ncurses.h>    /* i/o routines */
-#include "main.h"
-#include "misc.h"
+#include "pac.h"
+#include "creature_common.h"
+#include "gui_unix_ncurses.h"
 #include "score.h"
-#include "gui-ncurses.h"
 
 
 /* This is the input/output module. Functions that use calls from

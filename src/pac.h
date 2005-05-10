@@ -17,16 +17,38 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
-#include "main.h"
-#include "misc.h"
 
-int get_row(const struct creature *ct)
-{
-	return ct->position.row;
-}
+#ifndef MAIN_H
+#define MAIN_H 1
 
-int get_col(const struct creature *ct)
-{
-	return ct->position.col;
-}
+/* 
+ * A position in the world of pacman can be broken down to a
+ * column/row.
+ */
+struct pos {
+        int col;
+        int row;
+};
 
+/* 
+ * This strictly don't need to be a struct, but it is implemented
+ * such to facilitate easy updates.
+ */
+struct location {
+        int bg;
+};
+
+/* 
+ * This is the representation of the world of Pacman. 
+ *
+ */
+struct env {
+        unsigned long total_score;
+        unsigned int cherries_left;
+        unsigned int lives_left;
+        int rows;
+        int cols;
+        struct location ***pos;
+};
+
+#endif /* MAIN_H */

@@ -18,10 +18,9 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
 #include <stdlib.h>     /* for rand() */
-#include "main.h"
-#include "ghost.h"
-#include "move.h"
-#include "misc.h"
+#include "pac.h"
+#include "creature_common.h"
+#include "creature_ghosts.h"
 
 
 /* 

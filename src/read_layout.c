@@ -21,7 +21,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "main.h"
+#include "pac.h"
 #include "score.h"
 #include "d2_alloc.h"
 #include "read_layout.h"

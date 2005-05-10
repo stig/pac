@@ -18,9 +18,9 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
 #include <stdlib.h>
-#include "main.h"
-#include "pacman.h"
-#include "move.h"
+#include "pac.h"
+#include "creature_common.h"
+#include "creature_pac.h"
 
 /* 
  * This module contains functions that have to do with moving pacman

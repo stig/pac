@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
-#include "main.h"
-#include "misc.h"
+#include "pac.h"
+#include "creature_common.h"
 #include "score.h"
 
 static void up_score(struct env *board, int score);

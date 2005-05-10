@@ -18,10 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
 
-#ifndef MOVE_H
-#define MOVE_H 1
+#ifndef CREATURE_GHOST_H
+#define CREATURE_GHOST_H 1
 
-int can_go_there(const struct env *, int, int);
-int next_location(struct creature *ct, int *row, int *col, enum dir c);
+#define NUM_GHOSTS 4
 
-#endif /* MOVE_H */
+enum dir ghost_initial_direction(int cnt);
+void ghost_move(struct env *board, struct creature *ct, int cnt);
+
+#endif 

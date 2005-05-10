@@ -20,16 +20,15 @@
 #include <stdlib.h>     /* provides EXIT_FAILURE etc */
 #include <unistd.h>     /* needed for usleep() */
 #include <time.h>       /* provides time() */
-#include "main.h"
+#include "pac.h"
 #include "read_layout.h"
-#include "init-creatures.h"
 #include "d2_alloc.h"
-#include "pacman.h"
-#include "ghost.h"
+#include "creature_common.h"
+#include "creature_ghosts.h"
+#include "creature_pac.h"
 #include "score.h"
-#include "move.h"
 #include "gui.h"
-#include "gui-ncurses.h"
+#include "gui_unix_ncurses.h"
 
 /*
  * This is where the whole thing is glued together.

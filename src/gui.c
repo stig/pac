@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
-#include "main.h"
-#include "misc.h"
+#include "pac.h"
+#include "creature_common.h"
 #include "gui.h"
-#include "gui-ncurses.h"
+#include "gui_unix_ncurses.h"
 
 static void erase_tail_vertical(const struct env *base, 
 		const struct creature *ct, int offset);
