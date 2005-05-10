@@ -30,4 +30,4 @@ void up_lives(struct env *board);
 unsigned int lives_left(const struct env *board);
 void down_lives(struct env *board);
 
-#endif /* SCORE_H */
+#endif 

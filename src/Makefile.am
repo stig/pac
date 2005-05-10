@@ -3,3 +3,5 @@ pac_SOURCES = creature_common.c creature_ghosts.c creature_pac.c d2_alloc.c gui.
 
 pkgdata_DATA = layout.dat
 EXTRA_DIST = layout.dat
+
+CPPFLAGS += -W -Wall

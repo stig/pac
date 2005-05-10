@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "pac.h"
+#include "creature_common.h"
 #include "score.h"
 #include "d2_alloc.h"
 #include "read_layout.h"

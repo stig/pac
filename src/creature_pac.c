@@ -37,7 +37,7 @@ static int creature_contact(const struct pos *pac, const struct pos *ghost);
 /* Given a direction, see if we can go to the place that would
  * lead us. If we cannot, continue in the old direction if we
  * can. otherwise, just stay where we are. */
-void move_pacman(const struct env *board, 
+void move_pac(const struct env *board, 
                 struct creature *pac,
                 enum dir direction) 
 {
@@ -56,17 +56,17 @@ void move_pacman(const struct env *board,
 	new_orientation(pac, direction);
 }
 
-/* Check all the ghosts to see if pacman has contact with any of
- * them.  Return 1 if pacman is caught (there is contact) or 0 if
+/* Check all the ghosts to see if pac has contact with any of
+ * them.  Return 1 if pac is caught (there is contact) or 0 if
  * not. */
-int pacman_caught(const struct creature *pacman, 
+int pac_caught(const struct creature *pac, 
                 const struct creature ghost[], 
                 const int ghost_cnt)
 {
         int i, retval = 0;
 
         for (i=0; i<ghost_cnt; i++) {
-                if (creature_contact(&(pacman->position), 
+                if (creature_contact(&(pac->position), 
                                         &(ghost[i].position))) {
                         retval = 1;
                         break;

@@ -20,11 +20,17 @@
 #include <stdio.h>
 #include "pac.h"
 #include "creature_common.h"
+#include "creature_ghosts.h"
 
 /* This file contains functions that are used by both the
- * pacman.c and ghost.c modules. */
+ * pac.c and ghost.c modules. */
 
 static int accessible_location(struct location *loc);
+static int creature_location(const struct location *loc,
+                const int who);
+static int get_starting_position(const struct env *board,
+                struct pos *loc, const int who);
+static void set_row_height(struct pos *loc, int row, int col);
 
 /* returns the row and column coordinates of the next location
  * given the current location and the direction to move in. */
@@ -112,30 +118,23 @@ int get_col(const struct creature *ct)
  */
 
 
-/* function prototypes for local helper functions */
-static int creature_location(const struct location *loc,
-                const int who);
-static int get_starting_position(const struct env *board,
-                struct pos *loc, const int who);
-static void set_row_height(struct pos *loc, int row, int col);
-
 
 /* Set up the starting conditions for a ghost */
 int init_players(const struct env *board, 
-                struct creature *pacman,
+                struct creature *pac,
                 struct creature *ghost,
                 int cnt)
 {
         int i;
 
-        fputs("\rInit pacman... ", stderr);
-        if (!get_starting_position(board, &(pacman->position), 'P'))
+        fputs("\rInit pac... ", stderr);
+        if (!get_starting_position(board, &(pac->position), 'P'))
                 return 0;
-        pacman->colour = 1;
-        pacman->direction = LEFT;
-        pacman->looks[0] = "/\257\\";
-        pacman->looks[1] = ">\260|";
-        pacman->looks[2] = "\\_/";
+        pac->colour = 1;
+        pac->direction = LEFT;
+        pac->looks[0] = "/\257\\";
+        pac->looks[1] = ">\260|";
+        pac->looks[2] = "\\_/";
 
         for (i=0; i<cnt; i++) {
                 fprintf(stderr, "\rInit ghost %i... ", i);

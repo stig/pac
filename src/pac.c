@@ -43,7 +43,7 @@
 #define DEC_DELAY 40
 
 /* static (local) function prototypes */
-static int main_game_loop(struct env *board, struct creature *pacman,
+static int main_game_loop(struct env *board, struct creature *pac,
                 struct creature *ghost, int cnt);
 static int play_again(void);
 static int game_won(const struct env *board);
@@ -55,7 +55,7 @@ int main(void)
 {
         int retval;
         struct env board;
-        struct creature pacman;
+        struct creature pac;
         struct creature ghost[NUM_GHOSTS];
 
         if (!read_layout(&board)) 
@@ -69,14 +69,14 @@ int main(void)
         srand(time(NULL));
 
         /* main game loop */
-        retval = main_game_loop(&board, &pacman, ghost, NUM_GHOSTS);
+        retval = main_game_loop(&board, &pac, ghost, NUM_GHOSTS);
 
 	d2_free_location_proper(board.pos, board.rows, board.cols);
         return EXIT_SUCCESS;
 }
 
 static int main_game_loop(struct env *board, 
-                struct creature *pacman,
+                struct creature *pac,
                 struct creature *ghost, 
                 int cnt)
 {
@@ -91,7 +91,7 @@ static int main_game_loop(struct env *board,
 
         do {
                 /* set up and place the players (ghosts etc) */
-                if (!init_players(board, pacman, ghost, cnt))
+                if (!init_players(board, pac, ghost, cnt))
                         return 0;
 
                 /* blank out screen, ready for action */
@@ -104,9 +104,9 @@ static int main_game_loop(struct env *board,
                         direction = get_user_input();
                         if (direction == QUIT) break;
 
-                        move_pacman(board, pacman, direction);
-                        draw_creature(pacman);
-			erase_tail(board, pacman);
+                        move_pac(board, pac, direction);
+                        draw_creature(pac);
+			erase_tail(board, pac);
 
                         /* Move and draw N ghosts. */
                         for (i=0; i<cnt; i++) {
@@ -117,7 +117,7 @@ static int main_game_loop(struct env *board,
 
                         /* Up the score if we got any cherries,
                          * then print the new (or old) score. */
-                        pick_up_cherries(board, pacman);
+                        pick_up_cherries(board, pac);
                         print_stat(board);
 
                         /* update the whole screen */
@@ -128,7 +128,7 @@ static int main_game_loop(struct env *board,
                         won = game_won(board);
                         if (won) break;
 
-                        if (pacman_caught(pacman, ghost, cnt)) {
+                        if (pac_caught(pac, ghost, cnt)) {
                                 down_lives(board);
                                 break;
                         }

@@ -22,15 +22,6 @@
 #define MAIN_H 1
 
 /* 
- * A position in the world of pacman can be broken down to a
- * column/row.
- */
-struct pos {
-        int col;
-        int row;
-};
-
-/* 
  * This strictly don't need to be a struct, but it is implemented
  * such to facilitate easy updates.
  */

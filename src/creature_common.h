@@ -22,6 +22,12 @@
 #define CREATURE_COMMON_H 1
 
 enum dir {QUIT, NO_INPUT, UP, RIGHT, DOWN, LEFT};
+
+struct pos {
+        int col;
+        int row;
+};
+
 struct creature {
         char *looks[3];
         int colour;
@@ -36,7 +42,7 @@ int get_row(const struct creature *ct);
 int get_col(const struct creature *ct);
 
 int init_players(const struct env *board, 
-                struct creature *pacman,
+                struct creature *pac,
                 struct creature *ghost,
                 int cnt);
 

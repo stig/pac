@@ -21,10 +21,10 @@
 #ifndef PACMAN_H
 #define PACMAN_H 1
 
-void move_pacman(const struct env *board, struct creature *pac,
+void move_pac(const struct env *board, struct creature *pac,
                 enum dir direction);
 
-int pacman_caught(const struct creature *pacman, 
+int pac_caught(const struct creature *pac, 
                 const struct creature ghost[], 
                 const int ghost_cnt);
 

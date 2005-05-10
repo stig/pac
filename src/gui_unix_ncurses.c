@@ -75,7 +75,7 @@ void print_stat(struct env *board)
         
 }
 
-/* Draw a creature, that is: either pacman or a ghost. */
+/* Draw a creature, that is: either pac or a ghost. */
 void draw_creature(const struct creature *ct)
 {
         int i;
@@ -194,7 +194,7 @@ void update_view(void)
         doupdate();
 }
 
-/* Blank the screen. This is usefull when pacman 'die' and the
+/* Blank the screen. This is usefull when pac 'die' and the
  * creatures' positions are evaluated again, since this print some
  * output on stderr that mucks up the screen, but that is rectified by
  * this call. */
