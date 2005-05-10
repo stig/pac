@@ -50,8 +50,8 @@ static int read_file(struct env *base, FILE *fp);
  */
 int read_layout(struct env *base)
 {
-        FILE *fp;
-        char fname[FILENAME_MAX] = "level-1.pac";
+        FILE *fp;    
+        char fname[FILENAME_MAX] = MAP_DIR "/level-1.pac";  /* XXX: ugly hack! */
         int rows, cols;
 
         /* if we cannot open the file, we cannot read from it

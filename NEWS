@@ -1,3 +1,10 @@
+Tue 25 Jun 2002:
+----------------
+Bumped the version number since `make install' now works :) I spent the
+whole day trying to find out how to do (within the domain of autoconf)
+what the macro AC_DEFINE_DIR() is supposed to do. Apparently the third
+argument is *not* optional, regardless of what the docs says :(
+
 Sat 22 Jun 2002:
 ----------------
 o Now pacman has a moving jaw. 

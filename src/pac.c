@@ -138,13 +138,8 @@ static int main_game_loop(struct env *board,
                         }
 
                         /* 
-                         * Sleep for a short while. This function
-                         * call is the only non-ISO/ANSI-C call
-                         * used by the program apart from the
-                         * functions in gui.[hc], thus it may
-                         * have to be replaced if ported to a
-                         * non-unix platform. It conforms to the
-                         * BSD 4.3 standard.
+			 * Sleep for a short while. This function is not
+			 * ANSI/ISO-C.
                          */
                         usleep(time_to_sleep);
                         if (time_to_sleep > MIN_DELAY)

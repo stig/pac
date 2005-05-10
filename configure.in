@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(pac, 0.2.0, stig@brautaset.org)
+AC_INIT(pac, 0.2.2, stig@brautaset.org)
 AC_CONFIG_SRCDIR(src/pac.c)		dnl my sources are here
 AC_CONFIG_AUX_DIR(config)		dnl install-sh etc stored here
 
@@ -16,6 +16,9 @@ AC_PROG_LN_S
 # libraries
 AC_SEARCH_LIBS(can_change_color, ncurses curses,,
 	       [echo "Error: (n)curses is required!" && exit 1])
+
+# this is were the maps are stored.
+AC_DEFINE_DIR(MAP_DIR, datadir/pac, [where maps are stored])
 
 # header files
 AC_HEADER_STDC

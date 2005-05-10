@@ -15,7 +15,7 @@ A few features that would be nice to incorporate:
 
         * clean up main_game_loop(), it is rather messy now.
 
-        * clean up code, make sure we don't address out-of-bounds anywhere.
+        * clean up code, in general.
 
         * make ghosts slightly more likely to head toward pacman, at least on
           the higher levels.
