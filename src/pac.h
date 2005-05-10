@@ -40,9 +40,11 @@ struct location {
  *
  */
 struct env {
-        unsigned long total_score;
+	unsigned long total_score;
         unsigned int cherries_left;
         unsigned int lives_left;
+	unsigned int current_level;
+	
         int rows;
         int cols;
         struct location ***pos;

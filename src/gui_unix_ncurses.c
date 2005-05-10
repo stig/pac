@@ -33,7 +33,6 @@
 
 /* functions local to this module */
 static void init_colours(void);
-static void kill_ncurses(void);
 static void draw_pac_jaw(const struct env *board, const struct creature *pac);
 
 /* 
@@ -207,7 +206,7 @@ int init_gui(int rows, int cols)
         fputs("Starting ncurses gui subsystem.\n", stderr);
         initscr();           /* set up ncurses */
 #if HAVE_ATEXIT
-        atexit(&endwin);  /* man atexit */
+        atexit((void*)&endwin);  /* man atexit */
 #endif
         getmaxyx(stdscr, y, x);
         if (y < rows || x < cols) {

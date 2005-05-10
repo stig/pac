@@ -1,11 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(pac, 0.2.0, stig@brautaset.org)
-AC_CONFIG_SRCDIR(src/pac.c)	dnl my sources are here
-AC_CONFIG_AUX_DIR(config)	dnl install-sh etc stored here
+AC_CONFIG_SRCDIR(src/pac.c)		dnl my sources are here
+AC_CONFIG_AUX_DIR(config)		dnl install-sh etc stored here
 
 AM_CONFIG_HEADER(config/config.h)	dnl the name of the header file
-AM_INIT_AUTOMAKE		dnl this needs to come after the above to work
-AM_MAINTAINER_MODE		dnl I'm a power user ;)
+AM_INIT_AUTOMAKE			dnl needs to come after above cruft
+AM_MAINTAINER_MODE			dnl I'm a power user ;)
 
 # Checks for programs.
 AC_PROG_AWK

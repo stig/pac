@@ -1,3 +1,9 @@
+Sat 22 Jun 2002:
+----------------
+o Now pacman has a moving jaw. 
+o Bumped the version number recently.
+o Started to tweak it so it should install properly.
+
 Wed 12 Jun 2002:
 ----------------
 o The tunnel works! Pac and the ghosts can freely use any tunnels that

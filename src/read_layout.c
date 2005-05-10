@@ -45,11 +45,13 @@ static int read_file(struct env *base, FILE *fp);
 /* 
  * Reads in the layout of a board from a file called
  * "layout.dat".
+ *
+ * FIXME: need to facilitate several layouts.
  */
 int read_layout(struct env *base)
 {
         FILE *fp;
-        char fname[FILENAME_MAX] = "layout.dat";
+        char fname[FILENAME_MAX] = "level-1.pac";
         int rows, cols;
 
         /* if we cannot open the file, we cannot read from it
