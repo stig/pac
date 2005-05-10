@@ -1,0 +1,28 @@
+A few features that would be nice to incorporate:
+
+        * several levels -- the code is there to support it, very little
+          additions should be needed. Re-init the board from a different
+          file, that's all.
+
+        * Keeping highscores
+
+        * allow warp sones, so the tunnel in the original can be implemented.
+
+        * using ncurses pads instead of screens, thus facilitating a larger
+          playing area than the physical screen (this is probably a bit hard).
+
+        * more consistent modular approach.
+
+        * make ghosts vulnerable when pacman eats a big cherry.
+
+        * clean up main_game_loop(), it is rather messy now.
+
+        * clean up code, make sure we don't address out-of-bounds anywhere.
+
+        * make ghosts slightly more likely to head toward pacman, at least on
+          the higher levels.
+
+        * calculate time delay based on board size, so the delay will me
+          universal regardless of the size of the board.
+
+	* integrate better with autoconf/automake.

@@ -1,0 +1,31 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT
+
+# where to put the configuration files etc.
+AC_CONFIG_AUX_DIR(config)	dnl config.h and scripts are stored here
+dnl AC_CONFIG_SRCDIR(config)	dnl not sure if this is redundant
+AM_CONFIG_HEADER(config/config.h)
+AM_INIT_AUTOMAKE(pac, 0.1.0)	dnl this needs to come after the above to work
+AM_MAINTAINER_MODE		dnl I'm a power user ;)
+
+# Checks for programs.
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+
+# header files
+AC_HEADER_STDC
+AC_CHECK_HEADERS(stdlib.h string.h unistd.h)
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([atexit strchr usleep])
+AC_SEARCH_LIBS(initscr, ncurses curses,, echo "*** ncurses is required!" && exit 1)
+
+# Create makefile
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_OUTPUT

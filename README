@@ -1,0 +1,8 @@
+Pac (C) 2002 Stig Brautaset.
+
+Pac is a Pacman clone for console, using the ncurses library. It supports
+reading in board layouts from a plain text file, thus making your own levels
+is trivial. The layout file is at the moment hard-coded as 'layout.dat', but
+that will change in the future.
+
+
