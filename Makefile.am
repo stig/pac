@@ -1,6 +1,10 @@
 SUBDIRS = src 
+EXTRA_DIST = bootstrap 
 
-# we need to include the config-dir etc explicitly
-EXTRA_DIST = bootstrap config/config.h.in config/depcomp \
-	     config/install-sh config/missing config/mkinstalldirs 
+# For my convenience..
+# `make upload' uploads the current version to my website.
+upload: distcheck
+	-ncftpput -f ~/.ncftp/opts public_html/projects/$(PACKAGE) \
+			$(PACKAGE)-$(VERSION).tar.gz
+
 
