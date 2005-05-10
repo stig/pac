@@ -22,7 +22,4 @@ A few features that would be nice to incorporate:
         * make ghosts slightly more likely to head toward pacman, at least on
           the higher levels.
 
-        * calculate time delay based on board size, so the delay will me
-          universal regardless of the size of the board.
-
-	* integrate better with autoconf/automake.
+	* make better use of autoconf/automake.
