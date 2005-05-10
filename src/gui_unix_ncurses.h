@@ -26,12 +26,12 @@
 #elif HAVE_CURSES_H
 #	include <curses.h>
 #else
-#	error No low-level graphics package!
+#	error neither ncurses.h nor curses.h available!
 #endif
 
 int init_gui(int rows, int cols);
 void draw_creature(const struct env *, const struct creature *ct);
-enum dir get_user_input(void);
+enum dir_t get_user_input(void);
 void update_view(void);
 void reset_view(void);
 int blocking_input(void);

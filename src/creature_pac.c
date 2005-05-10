@@ -27,33 +27,27 @@
  * around on, plus detecting when/if he get caught by one of the ghosts.
  */
 
-static void up_orient(struct creature *pac);
-static void right_orient(struct creature *pac);
-static void down_orient(struct creature *pac);
-static void left_orient(struct creature *pac);
-static void new_orientation(struct creature *pac, enum dir ndir);
-static int creature_contact(const struct pos *pac, const struct pos *ghost);
+static int creature_contact(const struct pos_t *pac, const struct pos_t *ghost);
 
 /* Given a direction, see if we can go to the place that would
  * lead us. If we cannot, continue in the old direction if we
  * can. otherwise, just stay where we are. */
 void move_pac(const struct env *board, 
                 struct creature *pac,
-                enum dir direction) 
+                enum dir_t direction) 
 {
         int row, col;
         
         if (!next_location(board, pac, &row, &col, direction)) {
-                direction = pac->direction;
+                direction = pac->dir;
                 next_location(board, pac, &row, &col, direction);
         }
         
         if (can_go_there(board, row, col)) {
-                pac->direction = direction;
-                pac->position.row = row;
-                pac->position.col = col;
+                pac->dir = direction;
+                pac->pos.row = row;
+                pac->pos.col = col;
         }
-	new_orientation(pac, direction);
 }
 
 /* Check all the ghosts to see if pac has contact with any of
@@ -66,8 +60,8 @@ int pac_caught(const struct creature *pac,
         int i, retval = 0;
 
         for (i=0; i<ghost_cnt; i++) {
-                if (creature_contact(&(pac->position), 
-                                        &(ghost[i].position))) {
+                if (creature_contact(&(pac->pos), 
+                                        &(ghost[i].pos))) {
                         retval = 1;
                         break;
                 }
@@ -77,8 +71,8 @@ int pac_caught(const struct creature *pac,
 
 /* Return 0 if there is no contact between the creatures, or 1 if
  * there is contact. */
-static int creature_contact(const struct pos *pac, 
-                const struct pos *ghost)
+static int creature_contact(const struct pos_t *pac, 
+                const struct pos_t *ghost)
 {
         if (2 >= abs(pac->row - ghost->row) && 
                         2 >= abs(pac->col - ghost->col))
@@ -86,56 +80,4 @@ static int creature_contact(const struct pos *pac,
         else
                 return 0;
         
-}
-
-static void new_orientation(struct creature *pac, enum dir ndir)
-{
-	static enum dir odir;
-
-	if (odir == ndir) return;
-	odir = ndir;
-	switch(odir) {
-		case UP:
-			up_orient(pac);
-			break;
-		case RIGHT:
-			right_orient(pac);
-			break;
-		case DOWN:
-			down_orient(pac);
-			break;
-		case LEFT:
-			left_orient(pac);
-			break;
-		default:
-			break;
-	}
-}
-
-static void up_orient(struct creature *pac)
-{
-	pac->looks[0] = "/V\\";
-	pac->looks[1] = "|'|";
-	pac->looks[2] = "\\_/";
-}
-
-static void right_orient(struct creature *pac)
-{
-	pac->looks[0] = "/^\\";
-	pac->looks[1] = "|'<";
-	pac->looks[2] = "\\_/";
-}
-
-static void down_orient(struct creature *pac)
-{
-	pac->looks[0] = "/^\\";
-	pac->looks[1] = "|'|";
-	pac->looks[2] = "\\^/";
-}
-
-static void left_orient(struct creature *pac)
-{
-	pac->looks[0] = "/^\\";
-	pac->looks[1] = ">'|";
-	pac->looks[2] = "\\_/";
 }

@@ -21,22 +21,24 @@
 #ifndef CREATURE_COMMON_H
 #define CREATURE_COMMON_H 1
 
-enum dir {QUIT, NO_INPUT, UP, RIGHT, DOWN, LEFT};
+enum dir_t {QUIT, NO_INPUT, UP, RIGHT, DOWN, LEFT};
 
-struct pos {
+struct pos_t {
         int col;
         int row;
 };
 
 struct creature {
-        char *looks[3];
+	int is_pac;	/*  is it pac or a ghost? */
         int colour;
-        enum dir direction;
-        struct pos position;
+	int circ;
+        char *looks[3];
+        enum dir_t dir;
+        struct pos_t pos;
 };
 
 int can_go_there(const struct env *, int, int);
-int next_location(const struct env *, struct creature *ct, int *row, int *col, enum dir c);
+int next_location(const struct env *, struct creature *ct, int *row, int *col, enum dir_t c);
 
 int get_row(const struct creature *ct);
 int get_col(const struct creature *ct);

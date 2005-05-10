@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
-#include <stdlib.h>     /* for rand() */
 #include "pac.h"
 #include "creature_common.h"
 #include "creature_ghosts.h"
@@ -29,13 +28,12 @@
  */
 
 
-static enum dir opposite_dir(enum dir dir);
+static enum dir_t opposite_dir(enum dir_t dir);
 static int turn_and_go_back(int range);
-static int myrand(int range);
 static int possible_directions(struct env *board, struct creature *ct,
-                enum dir odir, enum dir *dirs, int cnt_dirs);
+                enum dir_t odir, enum dir_t *dirs, int cnt_dirs);
 
-static enum dir pick_direction(enum dir *dirs, int cnt);
+static enum dir_t pick_direction(enum dir_t *dirs, int cnt);
 
 /* how likely it is we will turn and go back */
 #define TURN_RATE 50
@@ -43,7 +41,7 @@ static enum dir pick_direction(enum dir *dirs, int cnt);
 
 /* This function returns as different initial direction for each
  * ghost based on their index */
-enum dir ghost_initial_direction(int idx)
+enum dir_t ghost_initial_direction(int idx)
 {
         return UP+idx;
 }
@@ -52,16 +50,18 @@ enum dir ghost_initial_direction(int idx)
  * "idx" is provided so we can know which ghost we are dealing
  * with if we later want to individualise the behaviour of the
  * ghosts.
+ *
+ * XXX: idx is not used
  */
 void ghost_move(struct env *board, struct creature *ct, int idx)
 {
         int row, col, cnt;
-        enum dir direction, poss_dirs[NUM_DIRS];
+        enum dir_t direction, poss_dirs[NUM_DIRS];
 
         if (!turn_and_go_back(TURN_RATE)) 
-                direction = opposite_dir(ct->direction);
+                direction = opposite_dir(ct->dir);
         else 
-                direction = ct->direction;
+                direction = ct->dir;
 
         cnt = possible_directions(board, ct, direction, poss_dirs, NUM_DIRS);
         if (cnt > 0)
@@ -69,13 +69,15 @@ void ghost_move(struct env *board, struct creature *ct, int idx)
         
         next_location(board, ct, &row, &col, direction);
 
-        ct->position.row = row;
-        ct->position.col = col;
-        ct->direction = direction;
+        ct->pos.row = row;
+        ct->pos.col = col;
+        ct->dir = direction;
+
+	idx++; ++idx;
 }
 
 /* return a random valid direction */
-static enum dir pick_direction(enum dir *dirs, int cnt)
+static enum dir_t pick_direction(enum dir_t *dirs, int cnt)
 {
         int rnd;
         do 
@@ -86,8 +88,8 @@ static enum dir pick_direction(enum dir *dirs, int cnt)
 
 /* return the number of directions we can walk in */
 static int possible_directions(struct env *board, 
-                struct creature *ct, enum dir odir,
-                enum dir *dirs, int cnt_dirs)
+                struct creature *ct, enum dir_t odir,
+                enum dir_t *dirs, int cnt_dirs)
 {
         int row, col, i;
         int cnt = 0;    /* number of possible directions */
@@ -107,7 +109,7 @@ static int possible_directions(struct env *board,
 }
 
 /* simply return the opposite direction of the argument value. */
-static enum dir opposite_dir(enum dir dir)
+static enum dir_t opposite_dir(enum dir_t dir)
 {
         switch (dir) {
                 case UP: 
@@ -142,14 +144,4 @@ static int turn_and_go_back(int range)
                 return 0;
         else    
                 return 1;
-}
-
-/* Return a random integer value zero <= Val < range.
- *
- * Steve Summit's comp.lang.c FAQ advocates this way of getting
- * random numbers over the more obvious "rand() % range".
- */ 
-static int myrand(int range)
-{
-        return (int)((double)rand() / ((double)RAND_MAX + 1) * range);
 }

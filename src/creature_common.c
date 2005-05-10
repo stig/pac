@@ -29,12 +29,12 @@ static int accessible_location(struct location *loc);
 static int creature_location(const struct location *loc,
                 const int who);
 static int get_starting_position(const struct env *board,
-                struct pos *loc, const int who);
-static void set_row_height(struct pos *loc, int row, int col);
+                struct pos_t *loc, const int who);
+static void set_row_height(struct pos_t *loc, int row, int col);
 
 /* returns the row and column coordinates of the next location
  * given the current location and the direction to move in. */
-int next_location(const struct env *base, struct creature *ct, int *row, int *col, enum dir c)
+int next_location(const struct env *base, struct creature *ct, int *row, int *col, enum dir_t c)
 {
         switch (c) {
         case LEFT:
@@ -69,12 +69,6 @@ int can_go_there(const struct env *board, int row, int col)
 	r = board->rows;
 	c = board->cols;
 	
-#if 0
-        /* if we try to go outside the board, return error */
-        if (row - k < 0 || board->rows < row - k) return 0;
-        if (col - k < 0 || board->cols < col - k) return 0;
-#endif
-
         /* check whether all 9 locations affected are free */
         for (i=-k; i<=k; i++) {
                 for (j=-k; j<=k; j++) {
@@ -110,12 +104,12 @@ static int accessible_location(struct location *loc)
 
 int get_row(const struct creature *ct)
 {
-	return ct->position.row;
+	return ct->pos.row;
 }
 
 int get_col(const struct creature *ct)
 {
-	return ct->position.col;
+	return ct->pos.col;
 }
 
 /* 
@@ -134,20 +128,24 @@ int init_players(const struct env *board,
         int i;
 
         fputs("\rInit pac... ", stderr);
-        if (!get_starting_position(board, &(pac->position), 'P'))
+        if (!get_starting_position(board, &(pac->pos), 'P'))
                 return 0;
         pac->colour = 1;
-        pac->direction = LEFT;
+        pac->dir = LEFT;
+	pac->circ = 1;
+	pac->is_pac = 1;
         pac->looks[0] = "/^\\";
-        pac->looks[1] = ">'|";
+        pac->looks[1] = "|'|";
         pac->looks[2] = "\\_/";
 
         for (i=0; i<cnt; i++) {
                 fprintf(stderr, "\rInit ghost %i... ", i);
-                if (!get_starting_position(board, &(ghost[i].position), 'W'+i))
+                if (!get_starting_position(board, &(ghost[i].pos), 'W'+i))
                         return 0;
                 ghost[i].colour = i + 2;
-                ghost[i].direction = ghost_initial_direction(i);
+                ghost[i].dir = ghost_initial_direction(i);
+		ghost[i].circ = 1;
+		ghost[i].is_pac = 0;
                 ghost[i].looks[0] = "/^\\";
                 ghost[i].looks[1] = "|\"|";
                 ghost[i].looks[2] = "^^^";
@@ -160,7 +158,7 @@ int init_players(const struct env *board,
 /* return a struct containing the starting position of a player
  */
 static int get_starting_position(const struct env *board,
-                struct pos *loc, const int who)
+                struct pos_t *loc, const int who)
 {
         int i, j;
         
@@ -177,7 +175,7 @@ static int get_starting_position(const struct env *board,
         return 0;
 }
 
-static void set_row_height(struct pos *loc, int row, int col)
+static void set_row_height(struct pos_t *loc, int row, int col)
 {
         loc->row = row;
         loc->col = col;

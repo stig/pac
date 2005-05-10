@@ -38,7 +38,7 @@
  * Initial and minimum delay for each tick, and the amount of
  * time we should decrease the delay with for each tick. 
  */
-#define INITIAL_DELAY 70000L
+#define INITIAL_DELAY 90000L
 #define MIN_DELAY 10000L
 #define DEC_DELAY 40
 
@@ -57,6 +57,10 @@ int main(void)
         struct env board;
         struct creature pac;
         struct creature ghost[NUM_GHOSTS];
+
+	printf("This is %s, version %s by Stig Brautaset\n", 
+			PACKAGE_NAME, PACKAGE_VERSION);
+	printf("Report bugs to %s\n\n", PACKAGE_BUGREPORT);
 
         if (!read_layout(&board)) 
                 return EXIT_FAILURE;
@@ -81,7 +85,7 @@ static int main_game_loop(struct env *board,
                 int cnt)
 {
         unsigned long time_to_sleep;
-        enum dir direction;
+        enum dir_t direction;
         int i, won = 0;
         
         draw_board(board);

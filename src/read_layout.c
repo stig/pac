@@ -144,7 +144,7 @@ static struct location* new_location(struct env *board, int tok)
 {
         struct location* tmp;
 
-        tmp = malloc(sizeof(struct pos));
+        tmp = malloc(sizeof(struct pos_t));
         if (!tmp) return NULL;  
 
         switch (tok) {

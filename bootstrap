@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
-aclocal -I config || exit 1
+aclocal || exit 1
 autoheader || exit 1
-automake --add-missing || exit 1
-#autoconf2.50 --warnings=all || exit 1
-autoconf2.50 || exit 1
+automake --add-missing --foreign || exit 1
+autoconf --warnings=all || exit 1
+#autoconf2.50 || exit 1

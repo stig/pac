@@ -44,7 +44,7 @@ void draw_board(struct env *board)
  * screen every iteration. This makes for a smoother game as well. */
 void erase_tail(const struct env *base, const struct creature *ct)
 {
-	switch(ct->direction){
+	switch(ct->dir){
 		case UP: 
 			erase_tail_horisontal(base, ct, 2);
 			break;

@@ -21,9 +21,17 @@
 #ifndef CREATURE_GHOST_H
 #define CREATURE_GHOST_H 1
 
+/* 
+ * Define the macro 'myrand' to save us the function call overhead.
+ */
+#if HAVE_STDLIB_H
+#  include <stdlib.h>
+#  define myrand(X) (int)((double)rand()/((double)RAND_MAX + 1) * X)
+#endif
+
 #define NUM_GHOSTS 4
 
-enum dir ghost_initial_direction(int cnt);
+enum dir_t ghost_initial_direction(int cnt);
 void ghost_move(struct env *board, struct creature *ct, int cnt);
 
 #endif 

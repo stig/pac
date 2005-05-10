@@ -23,7 +23,7 @@
 
 
 #if HAVE_CONFIG_H
-#	include "../config/config.h"
+#	include <config.h>
 #endif
 
 
@@ -49,3 +49,4 @@ struct env {
 };
 
 #endif /* MAIN_H */
+

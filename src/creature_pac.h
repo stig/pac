@@ -22,7 +22,7 @@
 #define PACMAN_H 1
 
 void move_pac(const struct env *board, struct creature *pac,
-                enum dir direction);
+                enum dir_t direction);
 
 int pac_caught(const struct creature *pac, 
                 const struct creature ghost[], 

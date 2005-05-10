@@ -34,6 +34,7 @@
 /* functions local to this module */
 static void init_colours(void);
 static void kill_ncurses(void);
+static void draw_pac_jaw(const struct env *board, const struct creature *pac);
 
 /* 
  * Set up the with and breath with a call to the function giving
@@ -90,7 +91,53 @@ void draw_creature(const struct env* board, const struct creature *ct)
 					ct->looks[i+k][j+k]);
 		}
         }
+
+	/* only pac has mouth */
+	if (ct->is_pac) 
+		draw_pac_jaw(board, ct);
+
         attroff(COLOR_PAIR(ct->colour));
+}
+
+/* draw pac's mouth */
+static void draw_pac_jaw(const struct env *board, const struct creature *pac)
+{ 
+	static int i;
+	int row, col;
+	char *p = NULL;
+	char *up =	"^^||^";
+	char *down =	"VV||V";
+	char *right =	"{<-=<";
+	char *left =	"}>-=>";
+
+	row = get_row(pac);
+	col = get_col(pac);
+	switch (pac->dir) {
+		case DOWN:
+			row = (board->rows + row + 1) % board->rows; 
+			p = up;
+			break;
+		case UP:
+			row = (board->rows + row - 1) % board->rows; 
+			p = down;
+			break;
+		case LEFT:
+			col = (board->cols + col - 1) % board->cols; 
+			p = left;
+			break;
+		case RIGHT:
+			col = (board->cols + col + 1) % board->cols; 
+			p = right;
+			break;
+		default:
+			/* do nothing, just return */
+			return;
+	}
+	attron(COLOR_PAIR(pac->colour));
+	mvaddch(row, col, (int)p[i]);
+	attroff(COLOR_PAIR(pac->colour));
+
+	i = ++i % 5;
 }
 
 /* Draws on the screen a single location */
@@ -122,10 +169,10 @@ void draw_location(const struct env *base, int row, int col)
         }
 }
 
-enum dir get_user_input(void)
+enum dir_t get_user_input(void)
 {
         int c;
-        enum dir retval = NO_INPUT;
+        enum dir_t retval = NO_INPUT;
 
         if ((c = getch()) && c != ERR)
                 while (ERR != getch());
@@ -159,7 +206,9 @@ int init_gui(int rows, int cols)
 
         fputs("Starting ncurses gui subsystem.\n", stderr);
         initscr();           /* set up ncurses */
-        atexit(&kill_ncurses);  /* man atexit */
+#if HAVE_ATEXIT
+        atexit(&endwin);  /* man atexit */
+#endif
         getmaxyx(stdscr, y, x);
         if (y < rows || x < cols) {
                 fputs("\rBoard too large for the virtual terminal.\n", stderr);
@@ -218,15 +267,6 @@ int blocking_input(void)
         ch = getch();
         nodelay(stdscr, TRUE);
         return ch;
-}
-
-/* this fuction is registered to run at normal exit of the
- * program. It returns the term's settings to normal. */
-static void kill_ncurses(void)
-{
-        endwin();
-        fputs("\nKilling ncurses windows.\n", stderr);
-        puts("Pacman(R) 2002, Stig Brautaset.\n");
 }
 
 /* initialise colours for the ncurses routines to use */
