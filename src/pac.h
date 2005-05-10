@@ -21,9 +21,15 @@
 #ifndef MAIN_H
 #define MAIN_H 1
 
+
+#if HAVE_CONFIG_H
+#	include "../config/config.h"
+#endif
+
+
 /* 
  * This strictly don't need to be a struct, but it is implemented
- * such to facilitate easy updates.
+ * such to facilitate easy extensions.
  */
 struct location {
         int bg;

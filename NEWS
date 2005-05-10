@@ -1,0 +1,9 @@
+Wed 12 Jun 2002:
+----------------
+o The tunnel works! Pac and the ghosts can freely use any tunnels that
+  exists as much as they want.
+
+Sat 01 Jun 2002:
+----------------
+o Now use arch to host the archive instead of CVS.
+

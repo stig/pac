@@ -43,9 +43,9 @@ void move_pac(const struct env *board,
 {
         int row, col;
         
-        if (!next_location(pac, &row, &col, direction)) {
+        if (!next_location(board, pac, &row, &col, direction)) {
                 direction = pac->direction;
-                next_location(pac, &row, &col, direction);
+                next_location(board, pac, &row, &col, direction);
         }
         
         if (can_go_there(board, row, col)) {
@@ -115,27 +115,27 @@ static void new_orientation(struct creature *pac, enum dir ndir)
 static void up_orient(struct creature *pac)
 {
 	pac->looks[0] = "/V\\";
-	pac->looks[1] = "|\260|";
+	pac->looks[1] = "|'|";
 	pac->looks[2] = "\\_/";
 }
 
 static void right_orient(struct creature *pac)
 {
-	pac->looks[0] = "/\257\\";
-	pac->looks[1] = "|\260<";
+	pac->looks[0] = "/^\\";
+	pac->looks[1] = "|'<";
 	pac->looks[2] = "\\_/";
 }
 
 static void down_orient(struct creature *pac)
 {
-	pac->looks[0] = "/\257\\";
-	pac->looks[1] = "|\260|";
+	pac->looks[0] = "/^\\";
+	pac->looks[1] = "|'|";
 	pac->looks[2] = "\\^/";
 }
 
 static void left_orient(struct creature *pac)
 {
-	pac->looks[0] = "/\257\\";
-	pac->looks[1] = ">\260|";
+	pac->looks[0] = "/^\\";
+	pac->looks[1] = ">'|";
 	pac->looks[2] = "\\_/";
 }

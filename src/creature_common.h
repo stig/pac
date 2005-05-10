@@ -36,7 +36,7 @@ struct creature {
 };
 
 int can_go_there(const struct env *, int, int);
-int next_location(struct creature *ct, int *row, int *col, enum dir c);
+int next_location(const struct env *, struct creature *ct, int *row, int *col, enum dir c);
 
 int get_row(const struct creature *ct);
 int get_col(const struct creature *ct);

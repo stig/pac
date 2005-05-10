@@ -20,7 +20,6 @@
 #include <stdio.h>
 #include <stdlib.h>     /* provides atexit() */
 #include <string.h>     /* needed for strlen() */
-#include <ncurses.h>    /* i/o routines */
 #include "pac.h"
 #include "creature_common.h"
 #include "gui_unix_ncurses.h"
@@ -76,13 +75,20 @@ void print_stat(struct env *board)
 }
 
 /* Draw a creature, that is: either pac or a ghost. */
-void draw_creature(const struct creature *ct)
+void draw_creature(const struct env* board, const struct creature *ct)
 {
-        int i;
+        int i, j, r, c, k = 1;
+
+	r = board->rows;
+	c = board->cols;
+
         attron(COLOR_PAIR(ct->colour));
-        for (i=-1; i<2; i++) {
-                mvprintw(get_row(ct) + i, get_col(ct) - 1, 
-                                "%3.3s", ct->looks[i+1]);
+        for (i=-k; i<=k; i++) {
+		for (j=-k; j<=k; j++) {
+			mvaddch((r + get_row(ct) + i) % r, 
+					(c + get_col(ct) + j) % c, 
+					ct->looks[i+k][j+k]);
+		}
         }
         attroff(COLOR_PAIR(ct->colour));
 }

@@ -6,8 +6,6 @@ A few features that would be nice to incorporate:
 
         * Keeping highscores
 
-        * allow warp sones, so the tunnel in the original can be implemented.
-
         * using ncurses pads instead of screens, thus facilitating a larger
           playing area than the physical screen (this is probably a bit hard).
 

@@ -67,7 +67,7 @@ void ghost_move(struct env *board, struct creature *ct, int idx)
         if (cnt > 0)
                 direction = pick_direction(poss_dirs, NUM_DIRS);
         
-        next_location(ct, &row, &col, direction);
+        next_location(board, ct, &row, &col, direction);
 
         ct->position.row = row;
         ct->position.col = col;
@@ -95,7 +95,7 @@ static int possible_directions(struct env *board,
         for (i=0; i<cnt_dirs; i++) {
                 row = get_row(ct);
                 col = get_col(ct);
-                next_location(ct, &row, &col, UP+i);
+                next_location(board, ct, &row, &col, UP+i);
                 if (can_go_there(board, row, col) && (unsigned)UP+i != odir) {
                         dirs[i] = UP+i;
                         cnt++;

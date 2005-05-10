@@ -65,17 +65,23 @@ void erase_tail(const struct env *base, const struct creature *ct)
 static void erase_tail_horisontal(const struct env *base, 
 		const struct creature *ct, int offset)
 {
-	int i;
-	for (i=-1; i<2; i++) {
-		draw_location(base, get_row(ct) + offset, get_col(ct)+i);
+	int i, r, c, k = 1;
+
+	r = base->rows;
+	c = base->cols;
+	for (i=-k; i<=k; i++) {
+		draw_location(base, (r+get_row(ct) + offset)%r, (c+get_col(ct)+i)%c);
 	}
 }
 
 static void erase_tail_vertical(const struct env *base, 
 		const struct creature *ct, int offset)
 {
-	int i;
-	for (i=-1; i<2; i++) {
-		draw_location(base, get_row(ct)+i, get_col(ct) + offset);
+	int i, r, c, k = 1;
+
+	r = base->rows;
+	c = base->cols;
+	for (i=-k; i<=k; i++) {
+		draw_location(base, (r+get_row(ct)+i)%r, (c+get_col(ct) + offset)%c);
 	}
 }

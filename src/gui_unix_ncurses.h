@@ -21,8 +21,16 @@
 #ifndef GUI_NCURSES_H
 #define GUI_NCURSES_H 1
 
+#if HAVE_NCURSES_H
+#	include <ncurses.h>
+#elif HAVE_CURSES_H
+#	include <curses.h>
+#else
+#	error No low-level graphics package!
+#endif
+
 int init_gui(int rows, int cols);
-void draw_creature(const struct creature *ct);
+void draw_creature(const struct env *, const struct creature *ct);
 enum dir get_user_input(void);
 void update_view(void);
 void reset_view(void);

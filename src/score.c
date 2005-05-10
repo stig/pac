@@ -29,11 +29,16 @@ static void down_cherries(struct env *board);
  * contain any cherries */
 void pick_up_cherries(struct env *board, struct creature *ct)
 {
-        int i, j;
+        int i, j, k = 1;
         int score = 0;
-        for (i=-1; i<2; i++) {
-                for (j=-1; j<2; j++) {
-                        score += pick_cherry(board, (board->pos[get_row(ct)+i][get_col(ct)+j]));
+	int r, c;
+
+	r = board->rows;
+	c = board->cols;
+        for (i=-k; i<=k; i++) {
+                for (j=-k; j<=k; j++) {
+                        score += pick_cherry(board, 
+					(board->pos[(r+get_row(ct)+i)%r][(c+get_col(ct)+j)%c]));
                 }
         }
 

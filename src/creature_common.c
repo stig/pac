@@ -34,23 +34,23 @@ static void set_row_height(struct pos *loc, int row, int col);
 
 /* returns the row and column coordinates of the next location
  * given the current location and the direction to move in. */
-int next_location(struct creature *ct, int *row, int *col, enum dir c)
+int next_location(const struct env *base, struct creature *ct, int *row, int *col, enum dir c)
 {
         switch (c) {
         case LEFT:
                 *row = get_row(ct);
-                *col = get_col(ct) - 1;
+                *col = (base->cols + get_col(ct) - 1) % base->cols;
                 break;
         case RIGHT:
                 *row = get_row(ct);
-                *col = get_col(ct) + 1;
+                *col = (base->cols + get_col(ct) + 1) % base->cols;
                 break;
         case UP:
-                *row = get_row(ct) - 1;
+                *row = (base->rows + get_row(ct) - 1) % base->rows;
                 *col = get_col(ct);
                 break;
         case DOWN:
-                *row = get_row(ct) + 1;
+                *row = (base->rows + get_row(ct) + 1) % base->rows;
                 *col = get_col(ct);
                 break;
         default:
@@ -64,15 +64,21 @@ int next_location(struct creature *ct, int *row, int *col, enum dir c)
 int can_go_there(const struct env *board, int row, int col)
 {
         int i, j, k = 1;
+	int r, c;
 
+	r = board->rows;
+	c = board->cols;
+	
+#if 0
         /* if we try to go outside the board, return error */
         if (row - k < 0 || board->rows < row - k) return 0;
         if (col - k < 0 || board->cols < col - k) return 0;
-        
+#endif
+
         /* check whether all 9 locations affected are free */
         for (i=-k; i<=k; i++) {
                 for (j=-k; j<=k; j++) {
-                        if (!accessible_location(board->pos[row+i][col+j]))
+                        if (!accessible_location(board->pos[(r+row+i)%r][(c+col+j)%c]))
                                 return 0;
                 }
         }
@@ -132,8 +138,8 @@ int init_players(const struct env *board,
                 return 0;
         pac->colour = 1;
         pac->direction = LEFT;
-        pac->looks[0] = "/\257\\";
-        pac->looks[1] = ">\260|";
+        pac->looks[0] = "/^\\";
+        pac->looks[1] = ">'|";
         pac->looks[2] = "\\_/";
 
         for (i=0; i<cnt; i++) {
@@ -142,7 +148,7 @@ int init_players(const struct env *board,
                         return 0;
                 ghost[i].colour = i + 2;
                 ghost[i].direction = ghost_initial_direction(i);
-                ghost[i].looks[0] = "/\257\\";
+                ghost[i].looks[0] = "/^\\";
                 ghost[i].looks[1] = "|\"|";
                 ghost[i].looks[2] = "^^^";
         }

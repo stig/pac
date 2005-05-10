@@ -21,6 +21,10 @@
 #ifndef GUI_H
 #define GUI_H 1
 
+#if defined(HAVE_NCURSES_H) || defined(HAVE_CURSES)
+#include "gui_unix_ncurses.h"
+#endif
+
 void draw_board(struct env *board);
 void erase_tail(const struct env *base, const struct creature *ct);
 

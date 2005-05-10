@@ -39,7 +39,7 @@
  * time we should decrease the delay with for each tick. 
  */
 #define INITIAL_DELAY 70000L
-#define MIN_DELAY 1000L
+#define MIN_DELAY 10000L
 #define DEC_DELAY 40
 
 /* static (local) function prototypes */
@@ -105,13 +105,13 @@ static int main_game_loop(struct env *board,
                         if (direction == QUIT) break;
 
                         move_pac(board, pac, direction);
-                        draw_creature(pac);
+                        draw_creature(board, pac);
 			erase_tail(board, pac);
 
                         /* Move and draw N ghosts. */
                         for (i=0; i<cnt; i++) {
                                 ghost_move(board, &(ghost[i]), i);
-                                draw_creature(&(ghost[i]));
+                                draw_creature(board, &(ghost[i]));
 				erase_tail(board, &(ghost[i]));
                         }
 
