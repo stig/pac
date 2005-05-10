@@ -34,6 +34,8 @@
  */
 
 
+#define MAP_DIR "/tmp"
+
 #define MINSIZE 16      /* minimum hor/vert size of board */
 
 /* helper functions local to this file */

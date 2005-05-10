@@ -24,10 +24,8 @@
 /* 
  * Define the macro 'myrand' to save us the function call overhead.
  */
-#if HAVE_STDLIB_H
-#  include <stdlib.h>
-#  define myrand(X) (int)((double)rand()/((double)RAND_MAX + 1) * X)
-#endif
+#include <stdlib.h>
+#define myrand(X) (int)((double)rand()/((double)RAND_MAX + 1) * X)
 
 #define NUM_GHOSTS 4
 

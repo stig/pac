@@ -1,6 +1,0 @@
-#!/bin/sh
-set -x
-aclocal && autoheader || exit 1
-automake --add-missing --foreign || exit 1
-autoconf --warnings=all || exit 1
-#autoconf2.50 || exit 1

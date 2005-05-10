@@ -21,13 +21,7 @@
 #ifndef GUI_NCURSES_H
 #define GUI_NCURSES_H 1
 
-#if HAVE_NCURSES_H
-#	include <ncurses.h>
-#elif HAVE_CURSES_H
-#	include <curses.h>
-#else
-#	error neither ncurses.h nor curses.h available!
-#endif
+#include <ncurses.h>
 
 int init_gui(int rows, int cols);
 void draw_creature(const struct env *, const struct creature *ct);

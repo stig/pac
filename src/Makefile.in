@@ -1,0 +1,6 @@
+mains	:= pac
+libs	:= -lncurses
+
+include $(makefiles)/programs.mk
+include $(makefiles)/install-programs.mk
+

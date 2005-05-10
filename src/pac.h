@@ -18,13 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
  */
 
-#ifndef MAIN_H
-#define MAIN_H 1
+#ifndef PAC__PAC_H
+#define PAC__PAC_H 1
 
-
-#if HAVE_CONFIG_H
-#	include <config.h>
-#endif
+#define PACKAGE_NAME "Pac"
+#define PACKAGE_VERSION "0.3"
+#define PACKAGE_BUGREPORT "stig@brautaset.org"
 
 
 /* 
@@ -50,5 +49,5 @@ struct env {
         struct location ***pos;
 };
 
-#endif /* MAIN_H */
+#endif 
 
