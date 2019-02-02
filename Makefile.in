@@ -1,2 +1,0 @@
-otherdirs := src
-include $(makefiles)/dirs.mk
