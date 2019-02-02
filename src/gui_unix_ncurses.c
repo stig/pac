@@ -136,7 +136,8 @@ static void draw_pac_jaw(const struct env *board, const struct creature *pac)
 	mvaddch(row, col, (int)p[i]);
 	attroff(COLOR_PAIR(pac->colour));
 
-	i = ++i % 5;
+	i++;
+	i %= 5;
 }
 
 /* Draws on the screen a single location */
